@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatórios do Governo de Minas Gerais</title>
+    <title>Julgamento das Contas - Governo de Minas Gerais</title>
     
     <!-- ==================== ESTILOS E BIBLIOTECAS ==================== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
-        /* ==================== TEMA ==================== */
         :root {
             --primary-dark: #29435A;
             --primary-darker: #0E2F44;
@@ -21,21 +20,19 @@
             --success-green: #28a745;
             --warning-yellow: #ffc107;
             --info-blue: #17a2b8;
-            --secondary-teal: #20B2AA;
         }
         
         body {
             font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--background-light);
-            padding-bottom: 15px;
-            overflow-x: hidden;
+            padding-bottom: 30px;
         }
 
         .main-header {
             background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 12px 0;
-            margin-bottom: 15px;
+            padding: 20px 0;
+            margin-bottom: 25px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-bottom: 3px solid var(--accent-red);
         }
@@ -43,12 +40,12 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
         
         .logo {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-bright) 100%);
             border-radius: 50%;
             display: flex;
@@ -56,75 +53,22 @@
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
         }
         
         .header-title {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 22px;
             margin: 0;
             line-height: 1.2;
         }
         
-        .update-badge {
-            background-color: rgba(255, 255, 255, 0.15);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
         }
         
-        .nav-tabs-container {
-            background: white;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-            margin-top: 10px;
-            overflow-x: auto;
-        }
-
-        .nav-tabs {
-            border: none !important;
-            gap: 4px;
-            flex-wrap: nowrap;
-            min-width: max-content;
-            padding-bottom: 5px;
-        }
-
-        .nav-tabs .nav-link {
-            border: none !important;
-            border-radius: 6px !important;
-            padding: 10px 15px !important;
-            font-weight: 600;
-            color: var(--primary-dark) !important;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            white-space: nowrap;
-            display: inline-flex !important;
-            align-items: center;
-            background: none !important;
-        }
-
-        .nav-tabs .nav-link:hover {
-            background-color: rgba(41, 67, 90, 0.05) !important;
-            color: var(--accent-red) !important;
-        }
-
-        .nav-tabs .nav-link.active {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%) !important;
-            color: white !important;
-        }
-
-        .nav-tabs .nav-link .material-icons {
-            font-size: 16px !important;
-            margin-right: 8px !important;
-            vertical-align: middle;
-        }
-
-        /* ÁREA DE DESCRIÇÃO */
         .description-area {
             background: white;
             border-radius: 10px;
@@ -161,12 +105,11 @@
             background-color: var(--background-light);
             padding: 15px 20px;
             border-radius: 8px;
-            border-left: 4px solid var(--secondary-teal);
+            border-left: 4px solid #20B2AA;
             margin-top: 15px;
             color: #1e293b;
         }
         
-        /* TABELAS */
         .table-container {
             background: white;
             border-radius: 10px;
@@ -191,22 +134,15 @@
             font-size: 16px;
             font-weight: 600;
             margin: 0;
-        }
-        
-        .table-badge {
-            background: var(--accent-red);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .table-fixed-header-container {
             position: relative;
             max-height: 500px;
             overflow: auto;
-            padding: 0;
         }
         
         .table-fixed-header-container table thead {
@@ -236,11 +172,6 @@
             font-size: 13px;
             border-collapse: separate;
             border-spacing: 0;
-            border: 1px solid #dee2e6;
-        }
-        
-        .table tbody tr {
-            transition: background-color 0.2s ease;
         }
         
         .table tbody tr:hover {
@@ -254,7 +185,6 @@
             border-bottom: 1px solid #f1f1f1;
         }
         
-        /* Links e badges */
         .document-link {
             color: var(--primary-darker);
             text-decoration: none;
@@ -264,6 +194,7 @@
             gap: 4px;
             border-bottom: 1px dashed var(--accent-red);
         }
+        
         .document-link:hover {
             color: var(--accent-red);
             border-bottom-style: solid;
@@ -282,14 +213,17 @@
             background-color: rgba(40, 167, 69, 0.1);
             color: var(--success-green);
         }
+        
         .tag-aprovado-ressalvas {
             background-color: rgba(255, 193, 7, 0.15);
             color: #b45b0a;
         }
+        
         .tag-em-julgamento {
             background-color: rgba(23, 162, 184, 0.1);
             color: var(--info-blue);
         }
+        
         .tag-nao-avaliado {
             background-color: #e9ecef;
             color: #6c757d;
@@ -309,6 +243,7 @@
             gap: 6px;
             cursor: pointer;
         }
+        
         .btn-export:hover {
             background: var(--primary-dark);
             color: white;
@@ -319,8 +254,8 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
-            padding: 10px 0;
         }
+        
         .data-atualizacao-box {
             background: white;
             border-radius: 8px;
@@ -338,125 +273,65 @@
 <body>
 
 
-    <div class="container">
-        <!-- ==================== MENU DE NAVEGAÇÃO ==================== -->
-        <div class="nav-tabs-container">
-            <ul class="nav nav-tabs" id="reportTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="balanco-tab" data-bs-toggle="tab" data-bs-target="#balanco" type="button" role="tab">
-                        <i class="material-icons me-2">account_balance</i>Relatórios de Gestão
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="julgamento-tab" data-bs-toggle="tab" data-bs-target="#julgamento" type="button" role="tab">
-                        <i class="material-icons me-2">gavel</i>Julgamento das Contas Anuais
-                    </button>
-                </li>
-            </ul>
-        </div>
-
-        <div class="tab-content" id="reportTabsContent">
-
-            <!-- ==================== DATA DE ATUALIZAÇÃO CENTRALIZADA (ÚNICA) ==================== -->
-            <div class="data-atualizacao-container">
-                <div class="data-atualizacao-box">
-                    <span class="material-icons">update</span>
-                    Atualizado em: <span id="data-atualizacao-header">Carregando...</span>
-                </div>
+        <!-- ÁREA DE DESCRIÇÃO -->
+        <div class="description-area">
+            <h2 class="description-title"><i class="material-icons">gavel</i> Julgamento das Contas Anuais do Governador</h2>
+            <div class="description-text">
+                <p>O julgamento das contas anuais do governador é o procedimento constitucional e legal de fiscalização orçamentária, financeira e patrimonial prestadas pelo chefe do Poder Executivo estadual. Consiste na avaliação técnica e política da gestão do estado durante um exercício financeiro, envolvendo a análise de conformidade com leis, limites fiscais e cumprimento de metas.</p>
             </div>
-
-            <!-- ==================== ABA 1: BALANÇO GERAL ==================== -->
-            <div class="tab-pane fade show active" id="balanco" role="tabpanel">
-                <div class="description-area">
-                    <h2 class="description-title"><i class="material-icons">account_balance</i> Balanço Geral do Estado</h2>
-                    <div class="description-text">
-                        <p>O Balanço Geral do Estado demonstra a consolidação dos atos e fatos da Administração Pública estadual e constitui a instrumentalização da transparência da gestão governamental (accountability).</p>
-                        <p>Além da prestação de contas a ser apresentada anualmente pelo Governador, como determina a Constituição Estadual nos termos do inciso XII do artigo 90, o Balanço Geral do Estado possibilita à sociedade mineira acompanhar as realizações do Governo de Minas Gerais, proporcionando a todos os cidadãos uma ampla visão da gestão do patrimônio público, bem como da origem e aplicação dos recursos dispostos nos instrumentos de planejamento. Neste contexto, estão as demonstrações contábeis concernentes à execução orçamentária, financeira e patrimonial da Administração Direta, das Autarquias, das Fundações, dos Fundos Estaduais e das Empresas Estatais Dependentes.</p>
-                    </div>
-                    <h2 class="description-title"><i class="material-icons">account_balance</i> Relatório de Gestão e Atividades</h2>
-                    <div class="description-text">
-                        <p>A Mensagem do Governador ou Relatório de Gestão e Atividades é um instrumento por meio do qual o Poder Executivo presta contas à sociedade, tornando públicas suas ações. Instrumento imprescindível no acompanhamento da transparência da situação financeira estadual.</p>
-                    </div>
-                </div>
-
-                <!-- Tabela Balanço (dados do arquivo relatorios_anuais_governo.xlsx) -->
-                <div class="table-container">
-                    <div class="table-fixed-header-container">
-                        <table class="table" id="tabelaBalanco">
-                            <thead>
-                                <tr>
-                                    <th>Ano</th>
-                                    <th>Balanço Geral do Estado</th>
-                                    <th>Relatório de Gestão / Atividades</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Os dados serão inseridos via JavaScript com base na planilha -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <p class="text-muted small mt-2">* Links para os documentos originais da SEFAZ/MG e Google Drive.</p>
-            </div>
-
-            <!-- ==================== ABA 2: JULGAMENTO DAS CONTAS ==================== -->
-            <div class="tab-pane fade" id="julgamento" role="tabpanel">
-                <div class="description-area">
-                    <h2 class="description-title"><i class="material-icons">gavel</i> Julgamento das Contas Anuais do Governador</h2>
-                    <div class="description-text">
-                        <p>O julgamento das contas anuais do governador é o procedimento constitucional e legal de fiscalização orçamentária, financeira e patrimonial prestadas pelo chefe do Poder Executivo estadual. Consiste na avaliação técnica e política da gestão do estado durante um exercício financeiro, envolvendo a análise de conformidade com leis, limites fiscais e cumprimento de metas.</p>
-                    </div>
-                    <div class="description-sub">
-                        <i class="material-icons" style="font-size: 18px; margin-right: 8px; vertical-align: middle;">assignment_late</i> 
-                        <p>Incluem: o Relatório de Controle Interno, a emissão de Parecer pelo Tribunal de Contas e julgamento das contas pela Comissão de Fiscalização Financeira e Orçamentária da Assembleia Legislativa.<p>
-                    </div>
-                </div>
-
-                <!-- Tabela Julgamento (dados do arquivo julgamento_contas_governador.xlsx) -->
-                <div class="table-container">
-                    <div class="table-fixed-header-container">
-                        <table class="table" id="tabelaJulgamento">
-                            <thead>
-                                <tr>
-                                    <th>Ano</th>
-                                    <th>Processo</th>
-                                    <th>Situação</th>
-                                    <th>Parecer Prévio TCEMG</th>
-                                    <th>Julgamento ALMG</th>
-                                    <th>Relatório CGE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Preenchido via JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <p class="text-muted small mt-2">* Dados históricos do TCEMG, ALMG e Controladoria-Geral.</p>
+            <div class="description-sub">
+                <i class="material-icons" style="font-size: 18px; margin-right: 8px; vertical-align: middle;">assignment_late</i> 
+                Incluem: o Relatório de Controle Interno (CGE), a emissão de Parecer pelo Tribunal de Contas (TCE-MG) e o julgamento das contas pela Comissão de Fiscalização Financeira e Orçamentária da Assembleia Legislativa (ALMG).
             </div>
         </div>
+
+        <!-- DATA DE ATUALIZAÇÃO -->
+        <div class="data-atualizacao-container">
+            <div class="data-atualizacao-box">
+                <span class="material-icons">update</span>
+                Atualizado em: <span id="data-atualizacao-header">Carregando...</span>
+            </div>
+        </div>
+
+        <!-- TABELA DE JULGAMENTO -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">
+                    <i class="material-icons">fact_check</i>
+                    Histórico de Julgamento das Contas
+                </h3>
+                <button class="btn-export" onclick="exportarTabela('tabelaJulgamento')">
+                    <i class="material-icons">download</i>
+                    Exportar CSV
+                </button>
+            </div>
+            <div class="table-fixed-header-container">
+                <table class="table" id="tabelaJulgamento">
+                    <thead>
+                        <tr>
+                            <th>Ano</th>
+                            <th>Processo</th>
+                            <th>Situação</th>
+                            <th>Parecer Prévio TCEMG</th>
+                            <th>Julgamento ALMG</th>
+                            <th>Relatório CGE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <p class="text-muted small mt-2">
+            <i class="fas fa-info-circle"></i> 
+            Dados históricos do TCEMG, ALMG e Controladoria-Geral do Estado.
+        </p>
     </div>
 
-    <!-- ==================== SCRIPTS ==================== -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ==================== DADOS INCORPORADOS DOS ARQUIVOS ====================
-        // Fonte: relatorios_anuais_governo.xlsx
-        const dadosBalanco = [
-            { ano: "2025", balanco: null, gestao: "https://drive.google.com/drive/folders/1OIvicrF2DlgWV7jqlMOoHn50Pd8mncYO?hl=pt-BR" },
-            { ano: "2024", balanco: "https://www.fazenda.mg.gov.br/governo/contadoria_geral/relatorio_contabil/balanco_2024/index.html", gestao: "https://drive.google.com/drive/folders/1rPFXxjPasvR_PnyUE2_zlb6ZYAR58qh3?hl=pt-BR" },
-            { ano: "2023", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2023/", gestao: "https://drive.google.com/drive/folders/1aZAatjJEhCAORwPqJwLbDckjlRy16W1C?hl=pt-BR" },
-            { ano: "2022", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2022/", gestao: "https://drive.google.com/drive/u/0/folders/1i_CFYxfGEGWbBjRsikt1mUZNYMOiqrEj" },
-            { ano: "2021", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2021/", gestao: "https://drive.google.com/file/d/1Q3Ex0-WNkpzap53_Axe3IYCkmo0LLnQw/view" },
-            { ano: "2020", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2020/", gestao: "https://drive.google.com/drive/folders/1UTADsZp9IRa_F1DSiPiW0PUpKKdG202x" },
-            { ano: "2019", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2019/", gestao: null },
-            { ano: "2018", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2018/", gestao: "https://www.mg.gov.br/planejamento/documento/mensagem-do-governador-2018" },
-            { ano: "2017", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2017/", gestao: "https://www.mg.gov.br/planejamento/documento/mensagem-do-governador-2017" },
-            { ano: "2016", balanco: "https://www.fazenda.mg.gov.br/tesouro-estadual/contadoria-geral/demonstracoes-contabeis-/balanco-geral-do-estado/balanco-geral-2016/", gestao: null },
-            { ano: "Exercícios anteriores", balanco: null, gestao: "https://www.mg.gov.br/planejamento/documento/mensagem-do-governador-exercicios-anteriores" }
-        ];
-
-        // Fonte: julgamento_contas_governador.xlsx
+        // Dados do julgamento das contas
         const dadosJulgamento = [
             { ano: "2024", processo: "1188127", situacao: "Em Julgamento", parecerTCE: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1188127", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1371:relatorio-de-controle-interno-contas-do-governo-exercicio-de-2024" },
             { ano: "2023", processo: "1167016", situacao: "Em Julgamento", parecerTCE: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1167016", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1038:relatorio-de-controle-interno-n-1606977-contas-de-governo-do-exercicio-de-2023" },
@@ -470,25 +345,12 @@
             { ano: "Exercícios anteriores", processo: "", situacao: "", parecerTCE: "https://www.tce.mg.gov.br/noticia/Detalhe/1111625215", julgamentoALMG: "https://www.almg.gov.br/atividade-parlamentar/leis/legislacao-mineira/?pesquisou=true&aba=pesquisa&q=APROVA+AS+CONTAS+DO+GOVERNADOR+DO+ESTADO+EXERC%C3%8DCIO&grupo=&num=&ano=&dataInicio=&dataFim=&sit=&ordem=2", relatorioCGE: null }
         ];
 
-        // ==================== FUNÇÕES DE RENDERIZAÇÃO ====================
-        function renderTabelaBalanco() {
-            const tbody = document.querySelector('#tabelaBalanco tbody');
-            if (!tbody) return;
-            let html = '';
-            dadosBalanco.forEach(item => {
-                const balancoLink = item.balanco ? `<a href="${item.balanco}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Balanço</a>` : '<span class="text-muted">—</span>';
-                const gestaoLink = item.gestao ? `<a href="${item.gestao}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Relatório</a>` : '<span class="text-muted">—</span>';
-                html += `<tr><td><strong>${item.ano}</strong></td><td>${balancoLink}</td><td>${gestaoLink}</td></tr>`;
-            });
-            tbody.innerHTML = html;
-        }
-
-        function renderTabelaJulgamento() {
+        function renderTabela() {
             const tbody = document.querySelector('#tabelaJulgamento tbody');
             if (!tbody) return;
+            
             let html = '';
             dadosJulgamento.forEach(item => {
-                // badge de situação
                 let badgeClass = 'tag-situacao ';
                 if (item.situacao.includes('Aprovado com ressalvas')) badgeClass += 'tag-aprovado-ressalvas';
                 else if (item.situacao.includes('Aprovação')) badgeClass += 'tag-aprovado';
@@ -497,9 +359,17 @@
                 
                 const situacaoBadge = `<span class="${badgeClass}">${item.situacao || '—'}</span>`;
                 
-                const parecerLink = item.parecerTCE ? `<a href="${item.parecerTCE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Parecer</a>` : '—';
-                const almgLink = item.julgamentoALMG ? `<a href="${item.julgamentoALMG}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Julgamento</a>` : '—';
-                const cgeLink = item.relatorioCGE ? `<a href="${item.relatorioCGE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> RCI</a>` : '—';
+                const parecerLink = item.parecerTCE 
+                    ? `<a href="${item.parecerTCE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Parecer</a>` 
+                    : '—';
+                    
+                const almgLink = item.julgamentoALMG 
+                    ? `<a href="${item.julgamentoALMG}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Julgamento</a>` 
+                    : '—';
+                    
+                const cgeLink = item.relatorioCGE 
+                    ? `<a href="${item.relatorioCGE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> RCI</a>` 
+                    : '—';
                 
                 html += `<tr>
                     <td><strong>${item.ano}</strong></td>
@@ -513,16 +383,15 @@
             tbody.innerHTML = html;
         }
 
-        // ==================== EXPORTAR CSV ====================
         function exportarTabela(tabelaId) {
             const tabela = document.getElementById(tabelaId);
             if (!tabela) return;
+            
             let csv = [];
-            // cabeçalhos
             const cabecalhos = [];
             tabela.querySelectorAll('thead th').forEach(th => cabecalhos.push(th.innerText));
             csv.push(cabecalhos.join(';'));
-            // linhas (apenas texto puro, sem links)
+            
             tabela.querySelectorAll('tbody tr').forEach(tr => {
                 const linha = [];
                 tr.querySelectorAll('td').forEach(td => {
@@ -534,35 +403,29 @@
                 });
                 csv.push(linha.join(';'));
             });
+            
             const conteudo = csv.join('\n');
             const blob = new Blob(["\uFEFF" + conteudo], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = tabelaId + '.csv';
+            link.download = 'julgamento-contas.csv';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
         }
 
-        // ==================== DATA/HORA ====================
         function atualizarData() {
             const agora = new Date();
-            const dataStr = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR');
+            const dataStr = agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR');
             const el = document.getElementById('data-atualizacao-header');
             if (el) el.textContent = dataStr;
         }
 
-        // Inicialização
         window.addEventListener('load', () => {
-            renderTabelaBalanco();
-            renderTabelaJulgamento();
+            renderTabela();
             atualizarData();
             setInterval(atualizarData, 60000);
         });
-
-        // Disponibiliza função global para o botão
-        window.exportarTabela = exportarTabela;
     </script>
 </body>
 </html>
