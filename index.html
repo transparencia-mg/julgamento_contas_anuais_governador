@@ -10,6 +10,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
+    <!-- Bibliotecas para PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
     <style>
         :root {
             --primary-dark: #29435A;
@@ -110,6 +114,89 @@
             color: #1e293b;
         }
         
+        /* Ações */
+        .actions-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #dee2e6;
+        }
+        
+        .btn-action {
+            background: white;
+            border: 2px solid var(--primary-darker);
+            color: var(--primary-dark);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        
+        .btn-action:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+        
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .share-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            z-index: 1000;
+            margin-top: 5px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .share-options.show {
+            display: block;
+        }
+        
+        .share-options a {
+            color: var(--primary-dark);
+            padding: 10px 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .share-options a:hover {
+            background-color: var(--background-light);
+        }
+        
+        .share-options a i {
+            width: 18px;
+            color: var(--accent-red);
+        }
+        
+        .table-badge {
+            background: var(--primary-dark);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Tabela */
         .table-container {
             background: white;
             border-radius: 10px;
@@ -117,26 +204,6 @@
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
             margin-bottom: 20px;
             border: 1px solid #dee2e6;
-        }
-        
-        .table-header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .table-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .table-fixed-header-container {
@@ -160,7 +227,7 @@
             z-index: 20;
             border: none;
             padding: 12px 10px;
-            font-size: 12px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
             white-space: nowrap;
@@ -169,7 +236,6 @@
         .table {
             margin: 0;
             width: 100%;
-            font-size: 13px;
             border-collapse: separate;
             border-spacing: 0;
         }
@@ -181,7 +247,7 @@
         .table tbody td {
             padding: 12px 10px;
             vertical-align: middle;
-            font-size: 13px;
+            font-size: 15px;
             border-bottom: 1px solid #f1f1f1;
         }
         
@@ -191,8 +257,9 @@
             font-weight: 500;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             border-bottom: 1px dashed var(--accent-red);
+            font-size: 14px;
         }
         
         .document-link:hover {
@@ -204,7 +271,7 @@
             display: inline-block;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 600;
             white-space: nowrap;
         }
@@ -229,29 +296,9 @@
             color: #6c757d;
         }
         
-        .btn-export {
-            background: white;
-            border: 2px solid var(--primary-darker);
-            color: var(--primary-dark);
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        
-        .btn-export:hover {
-            background: var(--primary-dark);
-            color: white;
-        }
-        
         .data-atualizacao-container {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             margin-bottom: 20px;
         }
@@ -261,10 +308,10 @@
             border-radius: 8px;
             padding: 8px 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 12px;
+            font-size: 13px;
             color: var(--primary-dark);
             font-weight: 600;
         }
@@ -285,26 +332,53 @@
             </div>
         </div>
 
-        <!-- DATA DE ATUALIZAÇÃO -->
+        <!-- DATA DE ATUALIZAÇÃO (ALINHADA À ESQUERDA) -->
         <div class="data-atualizacao-container">
             <div class="data-atualizacao-box">
                 <span class="material-icons">update</span>
-                Atualizado em: <span id="data-atualizacao-header">Carregando...</span>
+                Última atualização: <span id="data-atualizacao-header">Carregando...</span>
+            </div>
+        </div>
+
+        <!-- AÇÕES: CSV, PDF e COMPARTILHAR -->
+        <div class="actions-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-2">
+                    <button class="btn-action" onclick="exportarTabelaCSV()">
+                        <i class="material-icons">description</i> CSV
+                    </button>
+                    <button class="btn-action" onclick="exportarTabelaPDF()">
+                        <i class="material-icons">print</i> PDF
+                    </button>
+                    <div class="share-dropdown">
+                        <button class="btn-action" onclick="toggleShare()">
+                            <i class="material-icons">share</i> Compartilhar
+                        </button>
+                        <div class="share-options" id="shareOptions">
+                            <a href="#" onclick="copiarLink(event)">
+                                <i class="fas fa-link"></i> Copiar Link
+                            </a>
+                            <a href="#" onclick="compartilharFacebook(event)">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </a>
+                            <a href="#" onclick="compartilharTwitter(event)">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </a>
+                            <a href="#" onclick="compartilharLinkedIn(event)">
+                                <i class="fab fa-linkedin-in"></i> LinkedIn
+                            </a>
+                            <a href="#" onclick="compartilharWhatsApp(event)">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <span class="table-badge" id="totalRegistros">10 registros</span>
             </div>
         </div>
 
         <!-- TABELA DE JULGAMENTO -->
         <div class="table-container">
-            <div class="table-header">
-                <h3 class="table-title">
-                    <i class="material-icons">fact_check</i>
-                    Histórico de Julgamento das Contas
-                </h3>
-                <button class="btn-export" onclick="exportarTabela('tabelaJulgamento')">
-                    <i class="material-icons">download</i>
-                    Exportar CSV
-                </button>
-            </div>
             <div class="table-fixed-header-container">
                 <table class="table" id="tabelaJulgamento">
                     <thead>
@@ -314,7 +388,7 @@
                             <th>Situação</th>
                             <th>Parecer Prévio TCEMG</th>
                             <th>Julgamento ALMG</th>
-                            <th>Relatório CGE</th>
+                            <th>Relatório de Controle Interno (CGE)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -333,18 +407,89 @@
     <script>
         // Dados do julgamento das contas
         const dadosJulgamento = [
-            { ano: "2024", processo: "1188127", situacao: "Em Julgamento", parecerTCE: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1188127", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1371:relatorio-de-controle-interno-contas-do-governo-exercicio-de-2024" },
-            { ano: "2023", processo: "1167016", situacao: "Em Julgamento", parecerTCE: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1167016", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1038:relatorio-de-controle-interno-n-1606977-contas-de-governo-do-exercicio-de-2023" },
-            { ano: "2022", processo: "1144601", situacao: "Aprovação", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3810660", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1039:relatorio-de-controle-interno-n-1439038-contas-de-governo-do-exercicio-de-2022" },
-            { ano: "2021", processo: "1114783", situacao: "Aprovação", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3648160", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1430:relatorio-de-controle-interno-contas-do-governo-exercicio-de-2021" },
-            { ano: "2020", processo: "1101512", situacao: "Aprovado com ressalvas", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3017473", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=598:relatorio-de-controle-interno-exercicio2020" },
-            { ano: "2019", processo: "1088786", situacao: "Aprovado com ressalvas", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/2477146", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=453:relatorio-de-controle-interno-2020" },
-            { ano: "2018", processo: "1066559", situacao: "Aprovado com ressalvas", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/2072805", julgamentoALMG: null, relatorioCGE: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=456:relatorio-de-controle-interno-2019" },
-            { ano: "2017", processo: "1040601", situacao: "Aprovado com ressalvas", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/1901895", julgamentoALMG: null, relatorioCGE: null },
-            { ano: "2016", processo: "1007713", situacao: "Aprovação", parecerTCE: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/1442342", julgamentoALMG: "https://www.almg.gov.br/legislacao-mineira/texto/RAL/5526/2018/", relatorioCGE: null },
-            { ano: "Exercícios anteriores", processo: "", situacao: "", parecerTCE: "https://www.tce.mg.gov.br/noticia/Detalhe/1111625215", julgamentoALMG: "https://www.almg.gov.br/atividade-parlamentar/leis/legislacao-mineira/?pesquisou=true&aba=pesquisa&q=APROVA+AS+CONTAS+DO+GOVERNADOR+DO+ESTADO+EXERC%C3%8DCIO&grupo=&num=&ano=&dataInicio=&dataFim=&sit=&ordem=2", relatorioCGE: null }
+            { 
+                ano: "2024", 
+                processo: "1188127", 
+                situacao: "Em Julgamento", 
+                parecerTCE: { url: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1188127", texto: "Parecer Prévio TCEMG 2024" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1371:relatorio-de-controle-interno-contas-do-governo-exercicio-de-2024", texto: "Relatório de Controle Interno 2024" } 
+            },
+            { 
+                ano: "2023", 
+                processo: "1167016", 
+                situacao: "Em Julgamento", 
+                parecerTCE: { url: "https://www.tce.mg.gov.br/pesquisa_processo.asp?cod_processo=1167016", texto: "Parecer Prévio TCEMG 2023" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1038:relatorio-de-controle-interno-n-1606977-contas-de-governo-do-exercicio-de-2023", texto: "Relatório de Controle Interno 2023" } 
+            },
+            { 
+                ano: "2022", 
+                processo: "1144601", 
+                situacao: "Aprovação", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3810660", texto: "Parecer Prévio TCEMG 2022" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1039:relatorio-de-controle-interno-n-1439038-contas-de-governo-do-exercicio-de-2022", texto: "Relatório de Controle Interno 2022" } 
+            },
+            { 
+                ano: "2021", 
+                processo: "1114783", 
+                situacao: "Aprovação", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3648160", texto: "Parecer Prévio TCEMG 2021" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=1430:relatorio-de-controle-interno-contas-do-governo-exercicio-de-2021", texto: "Relatório de Controle Interno 2021" } 
+            },
+            { 
+                ano: "2020", 
+                processo: "1101512", 
+                situacao: "Aprovado com ressalvas", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/3017473", texto: "Parecer Prévio TCEMG 2020" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=598:relatorio-de-controle-interno-exercicio2020", texto: "Relatório de Controle Interno 2020" } 
+            },
+            { 
+                ano: "2019", 
+                processo: "1088786", 
+                situacao: "Aprovado com ressalvas", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/2477146", texto: "Parecer Prévio TCEMG 2019" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=453:relatorio-de-controle-interno-2020", texto: "Relatório de Controle Interno 2019" } 
+            },
+            { 
+                ano: "2018", 
+                processo: "1066559", 
+                situacao: "Aprovado com ressalvas", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/2072805", texto: "Parecer Prévio TCEMG 2018" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: { url: "https://www.cge.mg.gov.br/auditoria-interna-governamental/relatorios-de-auditoria/category/129-relatorio-de-controle-interno-rci?download=456:relatorio-de-controle-interno-2019", texto: "Relatório de Controle Interno 2018" } 
+            },
+            { 
+                ano: "2017", 
+                processo: "1040601", 
+                situacao: "Aprovado com ressalvas", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/1901895", texto: "Parecer Prévio TCEMG 2017" }, 
+                julgamentoALMG: null, 
+                relatorioCGE: null 
+            },
+            { 
+                ano: "2016", 
+                processo: "1007713", 
+                situacao: "Aprovação", 
+                parecerTCE: { url: "https://tcnotas.tce.mg.gov.br/tcjuris/Nota/BuscarArquivo/1442342", texto: "Parecer Prévio TCEMG 2016" }, 
+                julgamentoALMG: { url: "https://www.almg.gov.br/legislacao-mineira/texto/RAL/5526/2018/", texto: "Julgamento ALMG 2016" }, 
+                relatorioCGE: null 
+            },
+            { 
+                ano: "Exercícios anteriores", 
+                processo: "", 
+                situacao: "", 
+                parecerTCE: { url: "https://www.tce.mg.gov.br/noticia/Detalhe/1111625215", texto: "Pareceres Prévios" }, 
+                julgamentoALMG: { url: "https://www.almg.gov.br/atividade-parlamentar/leis/legislacao-mineira/?pesquisou=true&aba=pesquisa&q=APROVA+AS+CONTAS+DO+GOVERNADOR+DO+ESTADO+EXERC%C3%8DCIO&grupo=&num=&ano=&dataInicio=&dataFim=&sit=&ordem=2", texto: "Julgamentos ALMG" }, 
+                relatorioCGE: null 
+            }
         ];
 
+        // ==================== FUNÇÕES DA TABELA ====================
         function renderTabela() {
             const tbody = document.querySelector('#tabelaJulgamento tbody');
             if (!tbody) return;
@@ -360,15 +505,15 @@
                 const situacaoBadge = `<span class="${badgeClass}">${item.situacao || '—'}</span>`;
                 
                 const parecerLink = item.parecerTCE 
-                    ? `<a href="${item.parecerTCE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Parecer</a>` 
+                    ? `<a href="${item.parecerTCE.url}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> ${item.parecerTCE.texto}</a>` 
                     : '—';
                     
                 const almgLink = item.julgamentoALMG 
-                    ? `<a href="${item.julgamentoALMG}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> Julgamento</a>` 
+                    ? `<a href="${item.julgamentoALMG.url}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> ${item.julgamentoALMG.texto}</a>` 
                     : '—';
                     
                 const cgeLink = item.relatorioCGE 
-                    ? `<a href="${item.relatorioCGE}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> RCI</a>` 
+                    ? `<a href="${item.relatorioCGE.url}" target="_blank" class="document-link"><i class="fas fa-external-link-alt"></i> ${item.relatorioCGE.texto}</a>` 
                     : '—';
                 
                 html += `<tr>
@@ -381,39 +526,133 @@
                 </tr>`;
             });
             tbody.innerHTML = html;
+            
+            // Atualiza o contador de registros
+            document.getElementById('totalRegistros').textContent = dadosJulgamento.length + ' registros';
         }
 
-        function exportarTabela(tabelaId) {
-            const tabela = document.getElementById(tabelaId);
-            if (!tabela) return;
-            
-            let csv = [];
-            const cabecalhos = [];
-            tabela.querySelectorAll('thead th').forEach(th => cabecalhos.push(th.innerText));
-            csv.push(cabecalhos.join(';'));
-            
-            tabela.querySelectorAll('tbody tr').forEach(tr => {
-                const linha = [];
-                tr.querySelectorAll('td').forEach(td => {
-                    let texto = td.innerText.trim().replace(/\n/g, ' ');
-                    if (texto.includes(';') || texto.includes('"')) {
-                        texto = `"${texto.replace(/"/g, '""')}"`;
-                    }
-                    linha.push(texto);
-                });
-                csv.push(linha.join(';'));
+        // ==================== FUNÇÕES DE EXPORTAÇÃO ====================
+        window.exportarTabelaCSV = function() {
+            const linhas = dadosJulgamento.map(item => {
+                return [
+                    item.ano,
+                    item.processo || '',
+                    item.situacao || '',
+                    item.parecerTCE ? item.parecerTCE.texto : '',
+                    item.julgamentoALMG ? item.julgamentoALMG.texto : '',
+                    item.relatorioCGE ? item.relatorioCGE.texto : ''
+                ].map(c => `"${String(c).replace(/"/g, '""')}"`).join(';');
             });
             
-            const conteudo = csv.join('\n');
-            const blob = new Blob(["\uFEFF" + conteudo], { type: 'text/csv;charset=utf-8;' });
+            const csv = ['Ano;Processo;Situação;Parecer Prévio TCEMG;Julgamento ALMG;Relatório de Controle Interno (CGE)', ...linhas].join('\n');
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'julgamento-contas.csv';
-            document.body.appendChild(link);
+            link.download = 'julgamento_contas.csv';
             link.click();
-            document.body.removeChild(link);
-        }
+        };
 
+        window.exportarTabelaPDF = function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape' });
+            
+            // Preparar dados para a tabela
+            const dados = dadosJulgamento.map(item => [
+                item.ano,
+                item.processo || '—',
+                item.situacao || '—',
+                item.parecerTCE ? item.parecerTCE.texto : '—',
+                item.julgamentoALMG ? item.julgamentoALMG.texto : '—',
+                item.relatorioCGE ? item.relatorioCGE.texto : '—'
+            ]);
+            
+            // Configurar a tabela
+            doc.autoTable({
+                head: [['Ano', 'Processo', 'Situação', 'Parecer Prévio TCEMG', 'Julgamento ALMG', 'Relatório de Controle Interno (CGE)']],
+                body: dados,
+                startY: 25,
+                styles: {
+                    fontSize: 8,
+                    cellPadding: 3,
+                    overflow: 'linebreak',
+                    cellWidth: 'wrap'
+                },
+                headStyles: {
+                    fillColor: [41, 67, 90], // var(--primary-dark)
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: 'center'
+                },
+                alternateRowStyles: {
+                    fillColor: [245, 245, 245]
+                },
+                didDrawPage: (data) => {
+                    // Cabeçalho do documento
+                    doc.setFontSize(14);
+                    doc.setTextColor(41, 67, 90);
+                    doc.text('Julgamento das Contas Anuais do Governador', 14, 15);
+                    
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Emitido em: ${new Date().toLocaleString('pt-BR')}`, 14, 22);
+                    doc.text(`Fonte: TCEMG, ALMG e CGE-MG`, doc.internal.pageSize.width - 14, 22, { align: 'right' });
+                    
+                    // Rodapé
+                    doc.setFontSize(8);
+                    doc.text(`Página ${data.pageNumber}`, doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
+                    doc.text(window.location.href, 14, doc.internal.pageSize.height - 10);
+                }
+            });
+            
+            doc.save('julgamento_contas.pdf');
+        };
+
+        // ==================== FUNÇÕES DE COMPARTILHAMENTO ====================
+        window.toggleShare = function() {
+            const options = document.getElementById('shareOptions');
+            options.classList.toggle('show');
+        };
+
+        // Fechar o menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const shareDropdown = document.querySelector('.share-dropdown');
+            const shareOptions = document.getElementById('shareOptions');
+            
+            if (!shareDropdown.contains(event.target)) {
+                shareOptions.classList.remove('show');
+            }
+        });
+
+        window.copiarLink = function(event) {
+            event.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Link copiado para a área de transferência!');
+            }).catch(() => {
+                alert('Erro ao copiar link. Tente novamente.');
+            });
+        };
+
+        window.compartilharFacebook = function(event) {
+            event.preventDefault();
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+        };
+
+        window.compartilharTwitter = function(event) {
+            event.preventDefault();
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=Julgamento das Contas do Governador - MG`, '_blank');
+        };
+
+        window.compartilharLinkedIn = function(event) {
+            event.preventDefault();
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+        };
+
+        window.compartilharWhatsApp = function(event) {
+            event.preventDefault();
+            window.open(`https://wa.me/?text=${encodeURIComponent('Julgamento das Contas do Governador - MG: ' + window.location.href)}`, '_blank');
+        };
+
+        // ==================== FUNÇÕES AUXILIARES ====================
         function atualizarData() {
             const agora = new Date();
             const dataStr = agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR');
@@ -421,6 +660,7 @@
             if (el) el.textContent = dataStr;
         }
 
+        // ==================== INICIALIZAÇÃO ====================
         window.addEventListener('load', () => {
             renderTabela();
             atualizarData();
